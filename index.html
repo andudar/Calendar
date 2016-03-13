@@ -1,0 +1,100 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <style>
+    table {
+      border-collapse: collapse;
+    }
+
+    td,
+    th {
+      border: 1px solid grey;
+      padding: 5px;
+      text-align: center;
+      font-size: 20px;
+    }
+
+    th {
+      font-weight: bold;
+      background-color: lightgrey;
+    }
+		#calendar{
+			float: left;
+			text-align: center;
+		}
+  </style>
+  <meta charset="utf-8">
+</head>
+
+<body>
+
+<h1>Calendar</h1>
+  <div id="calendar"></div>
+
+  <script>
+    function createCalendar(id, year, month) {
+      var correctedMonth = month-1;
+      var elem = document.getElementById(id);
+      var table = document.createElement('table');
+      elem.appendChild(table);
+      table.innerHTML = '<table><tr><th></th><th></th><th></th><th></th><th></th><th></th><th></th></tr>';
+      
+      var ths = table.getElementsByTagName('th');
+      var weekDays = ['mon','tue','wed','thu','fri','sat','sun'];
+      for(var i = 0;i<ths.length;i++){
+        ths[i].innerHTML = weekDays[i];
+      }
+      for(var i = 0; i<6;i++){
+      table.innerHTML += '<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>';
+      }
+      
+      
+      var d = new Date(year,correctedMonth);
+      var monName = d.toLocaleString("en",{month:"long"});
+      var name = document.createElement("h1");
+      name.innerHTML = monName;
+      name.style = "font-size:20px;text-transform:uppercase;color:#126ADA;";
+			
+      calendar.insertBefore(name,calendar.firstChild);
+      
+     
+      var prevMon = new Date(year, correctedMonth-1);
+      var prevMonLen = 32 - prevMon.getDate(prevMon.setDate(32));
+      
+      
+      amountDays = 32 - d.getDate(d.setDate(32));
+      var d = new Date(year,correctedMonth);
+      
+      
+      var tds = table.getElementsByTagName('td');
+    
+      var beginDay = d.getDay()-1;
+      if(beginDay == -1) {beginDay = 6};
+      
+      
+      
+      for(var i = beginDay, j = 1; j <= amountDays; i++,j++){
+        tds[i].innerHTML = j;
+        tds[i].style = "color:#126ADA";
+      }
+      for(var i = amountDays+beginDay,j = 1; i != tds.length; i++,j++){
+        tds[i].innerHTML = j;
+        tds[i].style = "color:grey";
+      }
+      for(var i = beginDay-1, j = prevMonLen; i != -1; i--,j--){
+        tds[i].innerHTML = j;
+        tds[i].style = "color:grey";
+      }
+      
+      
+      
+      table.innerHTML += '</table>';
+      
+    }
+
+    createCalendar('calendar', 2016, 2)
+  </script>
+</body>
+
+</html>
